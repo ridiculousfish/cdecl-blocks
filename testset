@@ -1,0 +1,32 @@
+help
+set options
+# test some declarations
+declare x as ptr to character
+declare x as func(w as ptr to char, y as int) ret ptr to int
+declare x as func(ptr to char) ret ptr to int
+declare x as func(int) ret ptr to int
+declare x as func(ptr to char, int) ret ptr to int
+declare x as function (args) returning pointer to int
+# test some explain functions
+explain char *x
+explain int *x()
+explain int *x(args)
+explain int *x(char *)
+explain int *x(char *, int )
+explain int *x(char *, int, float)
+explain int *x(int )
+# test some casts
+cast x into ptr to char
+cast x into ptr to func ret int
+cast x into ptr to func() ret int
+cast x into ptr to func(args) ret int
+cast x into ptr to func(x as ptr to char, y as int) ret int
+cast x into ptr to func(ptr to char) ret int
+cast x into ptr to func(ptr to char, int) ret int
+cast x into ptr to func(ptr to char, int, float) ret int
+# test explaining some casts
+explain (char *)x
+explain (int (*)())x
+explain (int (*)(char *))x
+explain (int (*)(char *, int))x
+explain (int (*)(char *, int, float))x
