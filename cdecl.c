@@ -1103,7 +1103,7 @@ char *name, *storage, *left, *right, *type;
 void dodexplain(storage, constvol1, constvol2, type, decl)
 char *storage, *constvol1, *constvol2, *type, *decl;
 {
-    if (type && (strcmp(type, "void") == 0))
+    if (type && (strcmp(type, "void") == 0)) {
 	if (prev == 'n')
 	    unsupp("Variable of type void",
 		   "variable of type pointer to void");
@@ -1113,6 +1113,7 @@ char *storage, *constvol1, *constvol2, *type, *decl;
 	else if (prev == 'r')
 	    unsupp("reference to type void",
 		   "pointer to void");
+    }
 
     if (*storage == 'r')
 	switch (prev)
@@ -1137,13 +1138,14 @@ char *storage, *constvol1, *constvol2, *type, *decl;
 void docexplain(constvol, type, cast, name)
 char *constvol, *type, *cast, *name;
 {
-    if (strcmp(type, "void") == 0)
+    if (strcmp(type, "void") == 0) {
 	if (prev == 'a')
 	    unsupp("array of type void",
 		   "array of type pointer to void");
 	else if (prev == 'r')
 	    unsupp("reference to type void",
 		   "pointer to void");
+    }
     (void) printf("cast %s into %s", name, cast);
     if (strlen(constvol) > 0)
 	    (void) printf("%s ", constvol);
