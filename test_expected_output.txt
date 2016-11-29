@@ -1,0 +1,65 @@
+  [] means optional; {} means 1 or more; <> means defined elsewhere
+    commands are separated by ';' and newlines
+  command:
+    declare <name> as <english>
+    cast <name> into <english>
+    explain <gibberish>
+    set or set options
+    help, ?
+    quit or exit
+  english:
+    function [( <decl-list> )] returning <english>
+    block [( <decl-list> )] returning <english>
+    array [<number>] of <english>
+    [{ const | volatile | noalias }] pointer to <english>
+    <type>
+  type:
+    {[<storage-class>] [{<modifier>}] [<C-type>]}
+    { struct | union | enum } <name>
+  decllist: a comma separated list of <name>, <english> or <name> as <english>
+  name: a C identifier
+  gibberish: a C declaration, like 'int *x', or cast, like '(int *)x'
+  storage-class: extern, static, auto, register
+  C-type: int, char, float, double, or void
+  modifier: short, long, signed, unsigned, const, volatile, or noalias
+Valid set options (and command line equivalents) are:
+	options
+	create (-c), nocreate
+	prompt, noprompt (-q)
+	interactive (-i), nointeractive
+	ritchie (-r), preansi (-p), ansi (-a) or cplusplus (-+)
+
+Current set values are:
+	 nocreate
+	 noprompt
+	 nointeractive
+	(noritchie)
+	(nopreansi)
+	   ansi
+	(nocplusplus)
+char *x
+int *x(char *w, int y)
+int *x(char *)
+int *x(int )
+int *x(char *, int )
+int *x(args)
+declare x as pointer to char
+declare x as function returning pointer to int
+declare x as function (args) returning pointer to int
+declare x as function (pointer to char) returning pointer to int
+declare x as function (pointer to char, int) returning pointer to int
+declare x as function (pointer to char, int, float) returning pointer to int
+declare x as function (int) returning pointer to int
+(char *)x
+(int (*)())x
+(int (*)())x
+(int (*)(args))x
+(int (*)(char *x, int y))x
+(int (*)(char *))x
+(int (*)(char *, int ))x
+(int (*)(char *, int , float ))x
+cast x into pointer to char
+cast x into pointer to function returning int
+cast x into pointer to function (pointer to char) returning int
+cast x into pointer to function (pointer to char, int) returning int
+cast x into pointer to function (pointer to char, int, float) returning int
