@@ -39,7 +39,7 @@ cdgram.c: cdgram.y
 	yacc cdgram.y && mv y.tab.c cdgram.c
 
 test: cdecl
-	@./cdecl < testset | diff - test_expected_output.txt \
+	@./cdecl < testset | diff -U 3 - test_expected_output.txt \
 	  || ( echo "** Test failed **" && false ) \
 	  && echo "Tests passed"
 
