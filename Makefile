@@ -15,7 +15,8 @@
 #
 # add -DUSE_READLINE	To compile in support for the GNU readline library.
 
-CFLAGS= -g -O2 -std=c89
+CFLAGS= -g -O2 -std=c89 
+# CFLAGS+= -Ddodebug=1
 CC= gcc
 LIBS= 
 ALLFILES= makefile cdgram.y cdlex.l cdecl.c cdecl.1 testset testset++

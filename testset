@@ -15,6 +15,8 @@ explain int *x(char *)
 explain int *x(char *, int )
 explain int *x(char *, int, float)
 explain int *x(int )
+explain const int x
+explain int const x
 # test some casts
 cast x into ptr to char
 cast x into ptr to func ret int

@@ -84,15 +84,15 @@ stmt		: HELP NL
 			docast(NullCP, $2.left, $2.right, $2.type);
 			}
 
-		| EXPLAIN opt_storage opt_constvol_list type cdecl NL
+		| EXPLAIN opt_storage opt_constvol_list type opt_constvol_list cdecl NL
 			{
 			Debug((stderr, "stmt: EXPLAIN opt_storage opt_constvol_list type cdecl\n"));
 			Debug((stderr, "\topt_storage='%s'\n", $2));
 			Debug((stderr, "\topt_constvol_list='%s'\n", $3));
 			Debug((stderr, "\ttype='%s'\n", $4));
-			Debug((stderr, "\tcdecl='%s'\n", $5));
+			Debug((stderr, "\tcdecl='%s'\n", $6));
 			Debug((stderr, "\tprev = '%s'\n", visible(prev)));
-			dodexplain($2, $3, $4, $5);
+			dodexplain($2, $3, $5, $4, $6);
 			}
 
 		| EXPLAIN storage opt_constvol_list cdecl NL
@@ -102,7 +102,7 @@ stmt		: HELP NL
 			Debug((stderr, "\topt_constvol_list='%s'\n", $3));
 			Debug((stderr, "\tcdecl='%s'\n", $4));
 			Debug((stderr, "\tprev = '%s'\n", visible(prev)));
-			dodexplain($2, $3, NullCP, $4);
+			dodexplain($2, $3, NullCP, NullCP, $4);
 			}
 
 		| EXPLAIN opt_storage constvol_list cdecl NL
@@ -112,7 +112,7 @@ stmt		: HELP NL
 			Debug((stderr, "\tconstvol_list='%s'\n", $3));
 			Debug((stderr, "\tcdecl='%s'\n", $4));
 			Debug((stderr, "\tprev = '%s'\n", visible(prev)));
-			dodexplain($2, $3, NullCP, $4);
+			dodexplain($2, $3, NullCP, NullCP, $4);
 			}
 
 		| EXPLAIN '(' opt_constvol_list type cast ')' optNAME NL

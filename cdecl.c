@@ -140,7 +140,7 @@ char real_prompt[MAX_NAME+3];
   void doset(char *);
   void dodeclare(char*, char*, char*, char*, char*);
   void docast(char*, char*, char*, char*);
-  void dodexplain(char*, char*, char*, char*);
+  void dodexplain(char*, char*, char*, char*, char*);
   void docexplain(char*, char*, char*, char*);
   void cdecl_setprogname(char *);
   int dotmpfile(int, char**), dofileargs(int, char**);
@@ -1100,8 +1100,8 @@ char *name, *storage, *left, *right, *type;
         free(name);
 }
 
-void dodexplain(storage, constvol, type, decl)
-char *storage, *constvol, *type, *decl;
+void dodexplain(storage, constvol1, constvol2, type, decl)
+char *storage, *constvol1, *constvol2, *type, *decl;
 {
     if (type && (strcmp(type, "void") == 0))
 	if (prev == 'n')
@@ -1127,8 +1127,10 @@ char *storage, *constvol, *type, *decl;
     if (*storage)
         (void) printf("%s ", storage);
     (void) printf("%s", decl);
-    if (*constvol)
-	    (void) printf("%s ", constvol);
+    if (*constvol1)
+	    (void) printf("%s ", constvol1);
+    if (*constvol2)
+        (void) printf("%s ", constvol2);
     (void) printf("%s\n", type ? type : "int");
 }
 

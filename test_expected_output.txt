@@ -50,6 +50,8 @@ declare x as function (pointer to char) returning pointer to int
 declare x as function (pointer to char, int) returning pointer to int
 declare x as function (pointer to char, int, float) returning pointer to int
 declare x as function (int) returning pointer to int
+declare x as const int
+declare x as const int
 (char *)x
 (int (*)())x
 (int (*)())x
