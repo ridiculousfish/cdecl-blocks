@@ -38,8 +38,10 @@ cdlex.c: cdlex.l
 cdgram.c: cdgram.y
 	yacc cdgram.y && mv y.tab.c cdgram.c
 
-test:
+test: cdecl
 	./cdecl < testset
+
+test_cpp: c++decl
 	./c++decl < testset++
 
 install: cdecl
