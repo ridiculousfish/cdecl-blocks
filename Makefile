@@ -19,7 +19,7 @@ CFLAGS= -g -O2 -std=c89
 # CFLAGS+= -Ddodebug=1
 CC= gcc
 LIBS= 
-ALLFILES= makefile cdgram.y cdlex.l cdecl.c cdecl.1 testset testset++
+ALLFILES= Makefile cdgram.y cdlex.l cdecl.c cdecl.1 testset testset++
 BINDIR= /usr/bin
 MANDIR= /usr/man/man1
 CATDIR= /usr/man/cat1
