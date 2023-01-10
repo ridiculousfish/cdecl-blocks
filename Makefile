@@ -26,8 +26,13 @@ CATDIR= /usr/man/cat1
 INSTALL= install -c
 INSTALL_DATA= install -c -m 644
 
+EMCC_OPTIONS= -sEXPORTED_FUNCTIONS=_run_from_js -sEXPORTED_RUNTIME_METHODS=ccall,cwrap -sENVIRONMENT=web -sWASM=0 -sINVOKE_RUN=0 -sMALLOC=emmalloc 
+
 cdecl: c++decl
 	ln -s c++decl cdecl
+
+cdecl.js:  cdgram.c cdlex.c cdecl.c
+	emcc -std=c89 $(EMCC_OPTIONS) -Oz -Wno-deprecated-non-prototype cdecl.c -o cdecl.js
 
 c++decl: cdgram.c cdlex.c cdecl.c
 	$(CC) $(CFLAGS) -o c++decl cdecl.c $(LIBS)
@@ -54,7 +59,7 @@ install: cdecl
 	$(INSTALL_DATA) c++decl.1 $(MANDIR)
 
 clean:
-	rm -f cdgram.c cdlex.c cdecl y.output c++decl
+	rm -f cdgram.c cdlex.c cdecl y.output c++decl cdecl.js cdecl.js.mem cdecl.wasm
 
 clobber: clean
 	rm -f $(BINDIR)/cdecl $(BINDIR)/c++decl
@@ -66,3 +71,12 @@ cdecl.cpio: $(ALLFILES)
 
 cdecl.shar: $(ALLFILES)
 	shar $(ALLFILES) > cdecl.shar
+
+.PHONY: cdecl_emscripten
+cdecl_emscripten: cdgram.c cdlex.c cdecl.c
+	docker run \
+		--rm   \
+		-v ${PWD}:/src \
+		-u $(id -u):$(id -g) \
+		emscripten/emsdk \
+		make cdecl.js
