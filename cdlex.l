@@ -24,7 +24,6 @@ into		return INTO;
 member		return MEMBER;
 of		return OF;
 pointer		return POINTER;
-ptr		return POINTER;
 quit		return 0;
 reference	return REFERENCE;
 ref		return REFERENCE;
