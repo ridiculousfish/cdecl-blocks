@@ -251,7 +251,7 @@ struct {
 /* Run through the crosscheck array looking */
 /* for unsupported combinations of types. */
 void mbcheck() {
-  register int i, j, restrict;
+  register int i, j, restriction;
   char *t1, *t2;
 
   /* Loop through the types */
@@ -265,25 +265,25 @@ void mbcheck() {
         if (!(modbits & crosstypes[j].bit))
           continue;
         /* check the type of restriction */
-        restrict = crosscheck[i][j];
-        if (restrict == ALWAYS)
+        restriction = crosscheck[i][j];
+        if (restriction == ALWAYS)
           continue;
         t1 = crosstypes[i].name;
         t2 = crosstypes[j].name;
-        if (restrict == NEVER) {
+        if (restriction == NEVER) {
           notsupported("", t1, t2);
-        } else if (restrict == RITCHIE) {
+        } else if (restriction == RITCHIE) {
           if (RitchieFlag)
             notsupported(" (Ritchie Compiler)", t1, t2);
-        } else if (restrict == PREANSI) {
+        } else if (restriction == PREANSI) {
           if (PreANSIFlag || RitchieFlag)
             notsupported(" (Pre-ANSI Compiler)", t1, t2);
-        } else if (restrict == ANSI) {
+        } else if (restriction == ANSI) {
           if (!RitchieFlag && !PreANSIFlag)
             notsupported(" (ANSI Compiler)", t1, t2);
         } else {
           (void)fprintf(stderr, "%s: Internal error in crosscheck[%d,%d]=%d!\n",
-                        progname, i, j, restrict);
+                        progname, i, j, restriction);
           exit(1); /* NOTREACHED */
         }
       }
