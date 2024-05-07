@@ -26,7 +26,6 @@ Valid set options (and command line equivalents) are:
 	options
 	create (-c), nocreate
 	prompt, noprompt (-q)
-	interactive (-i), nointeractive
 	ritchie (-r), preansi (-p), ansi (-a) or cplusplus (-+)
 
 Current set values are:
