@@ -44,13 +44,13 @@ cdlex.c: cdlex.l
 cdgram.c: cdgram.y
 	yacc cdgram.y && mv y.tab.c cdgram.c
 
-test: cdecl
-	@./cdecl < testset | diff -U 3 - test_expected_output.txt \
-	  || ( echo "** Test failed **" && false ) \
-	  && echo "Tests passed"
-
-test_cpp: c++decl
-	./c++decl < testset++
+test: cdecl c++decl
+	@./cdecl < testset.txt | diff -U 3 - testset_expected_output.txt \
+	  || ( echo "** C tests failed **" && false ) \
+	  && echo "C tests passed"
+	@./c++decl < testset_cpp.txt | diff -U 3 - testset_cpp_expected_output.txt \
+	  || ( echo "** C++ tests failed **" && false ) \
+	  && echo "C++ tests passed"
 
 install: cdecl
 	$(INSTALL) cdecl $(BINDIR)
