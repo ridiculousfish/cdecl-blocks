@@ -38,12 +38,22 @@ Current set values are:
 	   ansi
 	(nocplusplus)
 char *x
+Warning: Unsupported in C -- 'reference'
+char &x
+Warning: Unsupported in C -- 'pointer to member of class'
+int X::*foo
+Warning: Unsupported in C -- 'pointer to member of class'
+class Y *(X::*foo)(arg1, arg2)
 int *x(char *w, int y)
 int *x(char *)
 int *x(int )
 int *x(char *, int )
 int *x(args)
 declare x as pointer to char
+Warning: Unsupported in C -- 'pointer to member of class'
+declare foo as pointer to member of class X int
+Warning: Unsupported in C -- 'pointer to member of class'
+declare foo as pointer to member of class X function (arg1, arg2) returning pointer to class Y
 declare x as function returning pointer to int
 declare x as function (args) returning pointer to int
 declare x as function (pointer to char) returning pointer to int
@@ -53,6 +63,8 @@ declare x as function (int) returning pointer to int
 declare x as const int
 declare x as const int
 (char *)x
+Warning: Unsupported in C -- 'pointer to member of class'
+(int X::*)x
 (int (*)())x
 (int (*)())x
 (int (*)(args))x
@@ -61,6 +73,8 @@ declare x as const int
 (int (*)(char *, int ))x
 (int (*)(char *, int , float ))x
 cast x into pointer to char
+Warning: Unsupported in C -- 'pointer to member of class'
+cast x into pointer to member of class X int
 cast x into pointer to function returning int
 cast x into pointer to function (pointer to char) returning int
 cast x into pointer to function (pointer to char, int) returning int

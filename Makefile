@@ -19,7 +19,7 @@ CFLAGS= -g -O2 -std=c89
 # CFLAGS+= -Ddodebug=1
 CC= gcc
 LIBS= 
-ALLFILES= Makefile cdgram.y cdlex.l cdecl.c cdecl.1 testset testset++
+ALLFILES= Makefile cdgram.y cdlex.l cdecl.c cdecl.1 testset.txt testset_expected_output.txt testset_cpp_expected_output.txt
 BINDIR= /usr/bin
 MANDIR= /usr/man/man1
 CATDIR= /usr/man/cat1
@@ -45,10 +45,10 @@ cdgram.c: cdgram.y
 	yacc cdgram.y && mv y.tab.c cdgram.c
 
 test: cdecl c++decl
-	@./cdecl < testset.txt | diff -U 3 - testset_expected_output.txt \
+	@./cdecl < testset.txt 2>&1 | diff -U 3 - testset_expected_output.txt \
 	  || ( echo "** C tests failed **" && false ) \
 	  && echo "C tests passed"
-	@./c++decl < testset_cpp.txt | diff -U 3 - testset_cpp_expected_output.txt \
+	@./c++decl < testset.txt 2>&1 | diff -U 3 - testset_cpp_expected_output.txt \
 	  || ( echo "** C++ tests failed **" && false ) \
 	  && echo "C++ tests passed"
 

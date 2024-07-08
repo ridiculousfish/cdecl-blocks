@@ -2,6 +2,9 @@ help
 set options
 # test some declarations
 declare x as pointer to character
+declare x as reference to character
+declare foo as pointer to member of class X int
+declare foo as pointer to member of class X function (arg1, arg2) returning pointer to class Y
 declare x as func(w as pointer to char, y as int) ret pointer to int
 declare x as func(pointer to char) ret pointer to int
 declare x as func(int) ret pointer to int
@@ -9,16 +12,19 @@ declare x as func(pointer to char, int) ret pointer to int
 declare x as function (args) returning pointer to int
 # test some explain functions
 explain char *x
+explain int X::*foo
+explain class Y *(X::*foo)(arg1, arg2)
 explain int *x()
 explain int *x(args)
 explain int *x(char *)
-explain int *x(char *, int )
+explain int *x(char *, int)
 explain int *x(char *, int, float)
-explain int *x(int )
+explain int *x(int)
 explain const int x
 explain int const x
 # test some casts
 cast x into pointer to char
+cast x into pointer to member of class X int
 cast x into pointer to func ret int
 cast x into pointer to func() ret int
 cast x into pointer to func(args) ret int
@@ -28,6 +34,7 @@ cast x into pointer to func(pointer to char, int) ret int
 cast x into pointer to func(pointer to char, int, float) ret int
 # test explaining some casts
 explain (char *)x
+explain (int X::*)x
 explain (int (*)())x
 explain (int (*)(char *))x
 explain (int (*)(char *, int))x
