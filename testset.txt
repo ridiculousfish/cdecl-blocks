@@ -5,6 +5,8 @@ declare x as pointer to character
 declare x as reference to character
 declare foo as pointer to member of class X int
 declare foo as pointer to member of class X function (arg1, arg2) returning pointer to class Y
+declare x as function returning int
+declare x as function (a as int) returning void
 declare x as func(w as pointer to char, y as int) ret pointer to int
 declare x as func(pointer to char) ret pointer to int
 declare x as func(int) ret pointer to int

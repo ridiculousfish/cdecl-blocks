@@ -44,10 +44,12 @@ Warning: Unsupported in C -- 'pointer to member of class'
 int X::*foo
 Warning: Unsupported in C -- 'pointer to member of class'
 class Y *(X::*foo)(arg1, arg2)
+int x()
+void x(int a)
 int *x(char *w, int y)
 int *x(char *)
-int *x(int )
-int *x(char *, int )
+int *x(int)
+int *x(char *, int)
 int *x(args)
 declare x as pointer to char
 Warning: Unsupported in C -- 'pointer to member of class'
@@ -70,8 +72,8 @@ Warning: Unsupported in C -- 'pointer to member of class'
 (int (*)(args))x
 (int (*)(char *x, int y))x
 (int (*)(char *))x
-(int (*)(char *, int ))x
-(int (*)(char *, int , float ))x
+(int (*)(char *, int))x
+(int (*)(char *, int, float))x
 cast x into pointer to char
 Warning: Unsupported in C -- 'pointer to member of class'
 cast x into pointer to member of class X int
