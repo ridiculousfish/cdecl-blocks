@@ -435,6 +435,7 @@ void unsupp(s, hint) char *s, *hint;
 /* being unsupported on a particular compiler. */
 void notsupported(compiler, type1, type2) char *compiler, *type1, *type2;
 {
+  fflush(stdout);
   if (type2)
     (void)fprintf(stderr, "Warning: Unsupported in%s C%s -- '%s' with '%s'\n",
                   compiler, CplusplusFlag ? "++" : "", type1, type2);

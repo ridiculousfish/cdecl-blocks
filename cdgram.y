@@ -326,7 +326,7 @@ adecllist	: /* empty */
 			Debug((stderr, "\tadecl.left='%s'\n", $1.left));
 			Debug((stderr, "\tadecl.right='%s'\n", $1.right));
 			Debug((stderr, "\tadecl.type='%s'\n", $1.type));
-			$$ = cat($1.type, ds(" "), $1.left, $1.right, NullCP);
+			$$ = cat($1.type, ds(strlen($1.left) || strlen($1.right) ? " " : ""), $1.left, $1.right, NullCP);
 			}
 
 		| NAME AS adecl
