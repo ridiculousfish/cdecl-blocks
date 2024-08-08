@@ -319,7 +319,7 @@ char *keywords[] = {"function", "returning", "array",    "pointer", "reference",
                     "union",    "enum",      "class",    "extern",  "static",
                     "auto",     "register",  "short",    "long",    "signed",
                     "unsigned", "char",      "float",    "double",  "void",
-                    NULL};
+                    "restrict", NULL};
 
 char *options[] = {"options", "create",  "nocreate", "prompt",    "noprompt",
 #if 0
@@ -653,8 +653,8 @@ struct helpstruct {
      /* 12 */ {"  block [( <decl-list> )] returning <english>", 0},
      /* 13 */ {"  array [<number>] of <english>", 0},
      /* 14 */
-     {"  [{ const | volatile | noalias }] pointer to <english>",
-      "  [{const|volatile}] {pointer|reference} to [member of class <name>] "
+     {"  [{ const | volatile | noalias | restrict }] pointer to <english>",
+      "  [{const|volatile|restrict}] {pointer|reference} to [member of class <name>] "
       "<english>"},
      /* 15 */ {"  <type>", 0},
      /* 16 */ {"type:", 0},
@@ -672,8 +672,8 @@ struct helpstruct {
      /* 22 */ {"storage-class: extern, static, auto, register", 0},
      /* 23 */ {"C-type: int, char, float, double, or void", 0},
      /* 24 */
-     {"modifier: short, long, signed, unsigned, const, volatile, or noalias",
-      "modifier: short, long, signed, unsigned, const, or volatile"},
+     {"modifier: short, long, signed, unsigned, const, volatile, restrict, or noalias",
+      "modifier: short, long, signed, unsigned, const, volatile, or restrict"},
      {0, 0}};
 
 /* Print out the help text */

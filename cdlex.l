@@ -52,6 +52,7 @@ int		{ yylval.dynstr = ds(yytext);	return INT; }
 long		{ yylval.dynstr = ds(yytext);	return LONG; }
 noalias		{ yylval.dynstr = ds(yytext);	return CONSTVOLATILE; }
 register	{ yylval.dynstr = ds(yytext);	return REGISTER; }
+restrict		{ yylval.dynstr = ds(yytext);	return CONSTVOLATILE; }
 short		{ yylval.dynstr = ds(yytext);	return SHORT; }
 signed		{ yylval.dynstr = ds(yytext);	return SIGNED; }
 static		{ yylval.dynstr = ds(yytext);	return STATIC; }
