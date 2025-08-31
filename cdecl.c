@@ -107,11 +107,13 @@ extern int errno;
 
 #ifdef USE_READLINE
 #include <readline/readline.h>
+#include <readline/history.h>
+
 /* prototypes for functions related to readline() */
-char *getline();
-char **attempt_completion(char *, int, int);
-char *keyword_completion(char *, int);
-char *command_completion(char *, int);
+char *cdecl_getline();
+char **attempt_completion(const char *, int, int);
+char *keyword_completion(const char *, int);
+char *command_completion(const char *, int);
 #endif
 
 /* maximum # of chars from progname to display in prompt */
@@ -161,6 +163,7 @@ void dodexplain(char *, char *, char *, char *, char *);
 void docexplain(char *, char *, char *, char *);
 void cdecl_setprogname(char *);
 int dotmpfile(int, char **), dofileargs(int, char **);
+int dotmpfile_from_string(const char *);
 #else
 char *ds(), *cat(), *visible();
 int getopt();
@@ -332,7 +335,7 @@ char *options[] = {"options", "create",  "nocreate", "prompt",    "noprompt",
 static char *line_read = NULL;
 
 /* Read a string, and return a pointer to it.  Returns NULL on EOF. */
-char *getline() {
+char *cdecl_getline() {
   /* If the buffer has already been allocated, return the memory
      to the free pool. */
   if (line_read != NULL) {
@@ -350,16 +353,16 @@ char *getline() {
   return (line_read);
 }
 
-char **attempt_completion(char *text, int start, int end) {
+char **attempt_completion(const char *text, int start, int end) {
   char **matches = NULL;
 
   if (start == 0)
-    matches = completion_matches(text, command_completion);
+    matches = rl_completion_matches(text, command_completion);
 
   return matches;
 }
 
-char *command_completion(char *text, int flag) {
+char *command_completion(const char *text, int flag) {
   static int index, len;
   char *command;
 
@@ -376,7 +379,7 @@ char *command_completion(char *text, int flag) {
   return NULL;
 }
 
-char *keyword_completion(char *text, int flag) {
+char *keyword_completion(const char *text, int flag) {
   static int index, len, set, into;
   char *keyword, *option;
 
@@ -822,7 +825,7 @@ int dostdin() {
     if (!quiet)
       (void)printf("Type `help' or `?' for help\n");
     ret = 0;
-    while ((line = getline())) {
+    while ((line = cdecl_getline())) {
       if (!strcmp(line, "quit") || !strcmp(line, "exit")) {
         free(line);
         return ret;
@@ -1187,15 +1190,14 @@ void versions() {
 #ifdef __EMSCRIPTEN__
 int run_from_js(const char *txt) { return dotmpfile_from_string(txt); }
 #else
-int main(argc, argv)
-char **argv;
+int main(int argc, char **argv)
 {
   int c, ret = 0;
 
 #ifdef USE_READLINE
   /* install completion handlers */
-  rl_attempted_completion_function = (CPPFunction *)attempt_completion;
-  rl_completion_entry_function = (Function *)keyword_completion;
+  rl_attempted_completion_function = attempt_completion;
+  rl_completion_entry_function = keyword_completion;
 #endif
 
   cdecl_setprogname(argv[0]);
