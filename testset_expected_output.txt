@@ -55,6 +55,7 @@ int *x(char *)
 int *x(int)
 int *x(char *, int)
 int *x(args)
+static volatile int x
 declare x as pointer to char
 declare x as array of int
 declare x as array 4 of int
@@ -66,6 +67,8 @@ Warning: Unsupported in C -- 'pointer to member of class'
 declare foo as pointer to member of class X function (arg1, arg2) returning pointer to class Y
 declare x as function returning pointer to int
 declare x as function (args) returning pointer to int
+declare x as static volatile int
+declare x as static pointer to const volatile long int
 declare x as function (pointer to char) returning pointer to int
 declare x as function (pointer to char, int) returning pointer to int
 declare x as function (pointer to char, int, float) returning pointer to int

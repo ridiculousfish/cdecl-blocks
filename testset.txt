@@ -17,6 +17,7 @@ declare x as func(pointer to char) ret pointer to int
 declare x as func(int) ret pointer to int
 declare x as func(pointer to char, int) ret pointer to int
 declare x as function (args) returning pointer to int
+declare x as static volatile int
 
 # test some explain functions
 explain char *x
@@ -28,6 +29,8 @@ explain int X::*foo
 explain class Y *(X::*foo)(arg1, arg2)
 explain int *x()
 explain int *x(args)
+explain static volatile int x
+explain static const long int volatile *x
 explain int *x(char *)
 explain int *x(char *, int)
 explain int *x(char *, int, float)
