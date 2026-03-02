@@ -38,6 +38,10 @@ Current set values are:
 	(noansi)
 	   cplusplus
 char *x
+int x[]
+int x[4]
+int x[][4]
+int (*x)[4]
 char &x
 int X::*foo
 class Y *(X::*foo)(arg1, arg2)
@@ -49,6 +53,10 @@ int *x(int)
 int *x(char *, int)
 int *x(args)
 declare x as pointer to char
+declare x as array of int
+declare x as array 4 of int
+declare x as array of array 4 of int
+declare x as pointer to array 4 of int
 declare foo as pointer to member of class X int
 declare foo as pointer to member of class X function (arg1, arg2) returning pointer to class Y
 declare x as function returning pointer to int
@@ -59,7 +67,10 @@ declare x as function (pointer to char, int, float) returning pointer to int
 declare x as function (int) returning pointer to int
 declare x as const int
 declare x as const int
+(void)x
 (char *)x
+(int (*)[4])x
+(char &)x
 (int X::*)x
 (int (*)())x
 (int (*)())x
@@ -68,6 +79,7 @@ declare x as const int
 (int (*)(char *))x
 (int (*)(char *, int))x
 (int (*)(char *, int, float))x
+cast x into void
 cast x into pointer to char
 cast x into pointer to member of class X int
 cast x into pointer to function returning int
