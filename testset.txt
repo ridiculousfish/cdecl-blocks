@@ -34,6 +34,8 @@ explain int *x(char *, int, float)
 explain int *x(int)
 explain const int x
 explain int const x
+explain static x
+explain const x
 
 # test some casts
 cast x into void

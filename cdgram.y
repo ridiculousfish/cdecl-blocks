@@ -102,7 +102,7 @@ stmt		: HELP NL
 			Debug((stderr, "\topt_constvol_list='%s'\n", $3));
 			Debug((stderr, "\tcdecl='%s'\n", $4));
 			Debug((stderr, "\tprev = '%s'\n", visible(prev)));
-			dodexplain($2, $3, NullCP, NullCP, $4);
+			dodexplain($2, $3, ds(""), NullCP, $4);
 			}
 
 		| EXPLAIN opt_storage constvol_list cdecl NL
@@ -112,7 +112,7 @@ stmt		: HELP NL
 			Debug((stderr, "\tconstvol_list='%s'\n", $3));
 			Debug((stderr, "\tcdecl='%s'\n", $4));
 			Debug((stderr, "\tprev = '%s'\n", visible(prev)));
-			dodexplain($2, $3, NullCP, NullCP, $4);
+			dodexplain($2, $3, ds(""), NullCP, $4);
 			}
 
 		| EXPLAIN '(' opt_constvol_list type cast ')' optNAME NL
@@ -768,7 +768,8 @@ c_type		: mod_list
 			}
 		;
 
-StrClaUniEnum	: ClassStruct
+StrClaUniEnum	: STRUCT
+		| CLASS
 		| ENUM
 		| UNION
 			{
