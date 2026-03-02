@@ -20,7 +20,7 @@ char cdgramsccsid[] = "@(#)cdgram.y	2.2 3/30/88";
 %token <dynstr> NUMBER SHORT SIGNED STRUCT UNION UNSIGNED VOID
 %token <dynstr> AUTO EXTERN REGISTER STATIC
 %type <dynstr> adecllist adims c_type cast castlist cdecl cdecl1 cdims
-%type <dynstr> constvol_list ClassStruct mod_list mod_list1 modifier
+%type <dynstr> ClassStruct mod_list mod_list1 modifier
 %type <dynstr> opt_constvol_list optNAME opt_storage storage StrClaUniEnum
 %type <dynstr> tname type
 %type <halves> adecl
@@ -84,15 +84,25 @@ stmt		: HELP NL
 			docast(NullCP, $2.left, $2.right, $2.type);
 			}
 
-		| EXPLAIN opt_storage opt_constvol_list type opt_constvol_list cdecl NL
+		| EXPLAIN storage opt_constvol_list type opt_constvol_list cdecl NL
 			{
-			Debug((stderr, "stmt: EXPLAIN opt_storage opt_constvol_list type cdecl\n"));
-			Debug((stderr, "\topt_storage='%s'\n", $2));
+			Debug((stderr, "stmt: EXPLAIN storage opt_constvol_list type cdecl\n"));
+			Debug((stderr, "\tstorage='%s'\n", $2));
 			Debug((stderr, "\topt_constvol_list='%s'\n", $3));
 			Debug((stderr, "\ttype='%s'\n", $4));
 			Debug((stderr, "\tcdecl='%s'\n", $6));
 			Debug((stderr, "\tprev = '%s'\n", visible(prev)));
 			dodexplain($2, $3, $5, $4, $6);
+			}
+
+		| EXPLAIN opt_constvol_list type opt_constvol_list cdecl NL
+			{
+			Debug((stderr, "stmt: EXPLAIN opt_constvol_list type cdecl\n"));
+			Debug((stderr, "\topt_constvol_list='%s'\n", $2));
+			Debug((stderr, "\ttype='%s'\n", $3));
+			Debug((stderr, "\tcdecl='%s'\n", $5));
+			Debug((stderr, "\tprev = '%s'\n", visible(prev)));
+			dodexplain(ds(""), $2, $4, $3, $5);
 			}
 
 		| EXPLAIN storage opt_constvol_list cdecl NL
@@ -105,14 +115,13 @@ stmt		: HELP NL
 			dodexplain($2, $3, ds(""), NullCP, $4);
 			}
 
-		| EXPLAIN opt_storage constvol_list cdecl NL
+		| EXPLAIN opt_constvol_list cdecl NL
 			{
-			Debug((stderr, "stmt: EXPLAIN opt_storage constvol_list cdecl\n"));
-			Debug((stderr, "\topt_storage='%s'\n", $2));
-			Debug((stderr, "\tconstvol_list='%s'\n", $3));
-			Debug((stderr, "\tcdecl='%s'\n", $4));
+			Debug((stderr, "stmt: EXPLAIN opt_constvol_list cdecl\n"));
+			Debug((stderr, "\topt_constvol_list='%s'\n", $2));
+			Debug((stderr, "\tcdecl='%s'\n", $3));
 			Debug((stderr, "\tprev = '%s'\n", visible(prev)));
-			dodexplain($2, $3, ds(""), NullCP, $4);
+			dodexplain(ds(""), $2, ds(""), NullCP, $3);
 			}
 
 		| EXPLAIN '(' opt_constvol_list type cast ')' optNAME NL
@@ -904,21 +913,6 @@ opt_constvol_list: CONSTVOLATILE opt_constvol_list
 			{
 			Debug((stderr, "opt_constvol_list: EMPTY\n"));
 			$$ = ds("");
-			}
-		;
-
-constvol_list: CONSTVOLATILE opt_constvol_list
-			{
-			Debug((stderr, "constvol_list: CONSTVOLATILE opt_constvol_list\n"));
-			Debug((stderr, "\tCONSTVOLATILE='%s'\n", $1));
-			Debug((stderr, "\topt_constvol_list='%s'\n", $2));
-			if (PreANSIFlag)
-				notsupported(" (Pre-ANSI Compiler)", $1, NullCP);
-			else if (RitchieFlag)
-				notsupported(" (Ritchie Compiler)", $1, NullCP);
-			else if ((strcmp($1, "noalias") == 0) && CplusplusFlag)
-				unsupp($1, NullCP);
-			$$ = cat($1,ds(strlen($2) ? " " : ""),$2,NullCP);
 			}
 		;
 

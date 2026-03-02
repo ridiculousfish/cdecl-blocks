@@ -17,6 +17,22 @@ declare x as func(pointer to char) ret pointer to int
 declare x as func(int) ret pointer to int
 declare x as func(pointer to char, int) ret pointer to int
 declare x as function (args) returning pointer to int
+declare x as static volatile int
+declare x as char
+declare x as signed char
+declare x as unsigned char
+declare x as short
+declare x as short int
+declare x as signed short
+declare x as signed short int
+declare x as signed
+declare x as unsigned
+declare x as long
+declare x as long int
+declare x as unsigned long
+declare x as unsigned long int
+declare x as unsigned long long
+declare x as unsigned long long int
 
 # test some explain functions
 explain char *x
@@ -28,6 +44,8 @@ explain int X::*foo
 explain class Y *(X::*foo)(arg1, arg2)
 explain int *x()
 explain int *x(args)
+explain static volatile int x
+explain static const long int volatile *x
 explain int *x(char *)
 explain int *x(char *, int)
 explain int *x(char *, int, float)
@@ -36,6 +54,21 @@ explain const int x
 explain int const x
 explain static x
 explain const x
+explain char x
+explain signed char x
+explain unsigned char x
+explain short x
+explain short int x
+explain signed short x
+explain signed short int x
+explain signed x
+explain unsigned x
+explain long x
+explain long int x
+explain unsigned long x
+explain unsigned long int x
+explain unsigned long long x
+explain unsigned long long int x
 
 # test some casts
 cast x into void

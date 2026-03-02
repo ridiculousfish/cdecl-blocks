@@ -52,6 +52,22 @@ int *x(char *)
 int *x(int)
 int *x(char *, int)
 int *x(args)
+static volatile int x
+char x
+signed char x
+unsigned char x
+short x
+short int x
+signed short x
+signed short int x
+signed x
+unsigned x
+long x
+long int x
+unsigned long x
+unsigned long int x
+unsigned long long x
+unsigned long long int x
 declare x as pointer to char
 declare x as array of int
 declare x as array 4 of int
@@ -61,6 +77,8 @@ declare foo as pointer to member of class X int
 declare foo as pointer to member of class X function (arg1, arg2) returning pointer to class Y
 declare x as function returning pointer to int
 declare x as function (args) returning pointer to int
+declare x as static volatile int
+declare x as static pointer to const volatile long int
 declare x as function (pointer to char) returning pointer to int
 declare x as function (pointer to char, int) returning pointer to int
 declare x as function (pointer to char, int, float) returning pointer to int
@@ -69,6 +87,21 @@ declare x as const int
 declare x as const int
 declare x as static int
 declare x as const int
+declare x as char
+declare x as signed char
+declare x as unsigned char
+declare x as short
+declare x as short int
+declare x as signed short
+declare x as signed short int
+declare x as signed
+declare x as unsigned
+declare x as long
+declare x as long int
+declare x as unsigned long
+declare x as unsigned long int
+declare x as unsigned long long
+declare x as unsigned long long int
 (void)x
 (char *)x
 (int (*)[4])x
