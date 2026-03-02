@@ -45,12 +45,16 @@ cdgram.c: cdgram.y
 	yacc cdgram.y && mv y.tab.c cdgram.c
 
 test: cdecl c++decl
-	@./cdecl < testset.txt 2>&1 | diff -U 3 - testset_expected_output.txt \
+	@./cdecl < testset.txt 2>&1 | diff -U 3 testset_expected_output.txt - \
 	  || ( echo "** C tests failed **" && false ) \
 	  && echo "C tests passed"
-	@./c++decl < testset.txt 2>&1 | diff -U 3 - testset_cpp_expected_output.txt \
+	@./c++decl < testset.txt 2>&1 | diff -U 3 testset_cpp_expected_output.txt - \
 	  || ( echo "** C++ tests failed **" && false ) \
 	  && echo "C++ tests passed"
+
+testok: cdecl c++decl
+	./cdecl < testset.txt > testset_expected_output.txt 2>&1
+	./c++decl < testset.txt > testset_cpp_expected_output.txt 2>&1
 
 install: cdecl
 	$(INSTALL) cdecl $(BINDIR)
