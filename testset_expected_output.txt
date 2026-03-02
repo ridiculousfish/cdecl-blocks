@@ -11,11 +11,11 @@
     function [( <decl-list> )] returning <english>
     block [( <decl-list> )] returning <english>
     array [<number>] of <english>
-    [{ const | volatile | noalias }] pointer to <english>
+    [{const|volatile|noalias}] pointer to <english>
     <type>
   type:
     {[<storage-class>] [{<modifier>}] [<C-type>]}
-    { struct | union | enum } <name>
+    {struct|union|enum} <name>
   decllist: a comma separated list of <name>, <english> or <name> as <english>
   name: a C identifier
   gibberish: a C declaration, like 'int *x', or cast, like '(int *)x'

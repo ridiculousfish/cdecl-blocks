@@ -657,14 +657,14 @@ struct helpstruct {
      /* 12 */ {"  block [( <decl-list> )] returning <english>", 0},
      /* 13 */ {"  array [<number>] of <english>", 0},
      /* 14 */
-     {"  [{ const | volatile | noalias }] pointer to <english>",
+     {"  [{const|volatile|noalias}] pointer to <english>",
       "  [{const|volatile}] {pointer|reference} to [member of class <name>] "
       "<english>"},
      /* 15 */ {"  <type>", 0},
      /* 16 */ {"type:", 0},
      /* 17 */ {"  {[<storage-class>] [{<modifier>}] [<C-type>]}", 0},
      /* 18 */
-     {"  { struct | union | enum } <name>",
+     {"  {struct|union|enum} <name>",
       "  {struct|class|union|enum} <name>"},
      /* 19 */
      {"decllist: a comma separated list of <name>, <english> or <name> as "
