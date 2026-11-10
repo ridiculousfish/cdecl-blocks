@@ -36,6 +36,13 @@ explain const int x
 explain int const x
 explain static x
 explain const x
+explain int x = 5
+explain char *p = "hello"
+explain int a[4] = {1, 2, 3, 4}
+explain unsigned long y = 0x10
+explain uint32_t *p = &val
+explain const size_t n
+explain uint8_t buf[4]
 
 # test some casts
 cast x into void

@@ -19,8 +19,10 @@ char cdgramsccsid[] = "@(#)cdgram.y	2.2 3/30/88";
 %token <dynstr> CHAR CLASS CONSTVOLATILE DOUBLE ENUM FLOAT INT LONG NAME
 %token <dynstr> NUMBER SHORT SIGNED STRUCT UNION UNSIGNED VOID
 %token <dynstr> AUTO EXTERN REGISTER STATIC
+%token <dynstr> TYPEDEF
+%token <dynstr> INIT
 %type <dynstr> adecllist adims c_type cast castlist cdecl cdecl1 cdims
-%type <dynstr> constvol_list ClassStruct mod_list mod_list1 modifier
+%type <dynstr> constvol_list ClassStruct mod_list mod_list1 modifier optinit
 %type <dynstr> opt_constvol_list optNAME opt_storage storage StrClaUniEnum
 %type <dynstr> tname type
 %type <halves> adecl
@@ -84,7 +86,7 @@ stmt		: HELP NL
 			docast(NullCP, $2.left, $2.right, $2.type);
 			}
 
-		| EXPLAIN opt_storage opt_constvol_list type opt_constvol_list cdecl NL
+		| EXPLAIN opt_storage opt_constvol_list type opt_constvol_list cdecl optinit NL
 			{
 			Debug((stderr, "stmt: EXPLAIN opt_storage opt_constvol_list type cdecl\n"));
 			Debug((stderr, "\topt_storage='%s'\n", $2));
@@ -92,27 +94,27 @@ stmt		: HELP NL
 			Debug((stderr, "\ttype='%s'\n", $4));
 			Debug((stderr, "\tcdecl='%s'\n", $6));
 			Debug((stderr, "\tprev = '%s'\n", visible(prev)));
-			dodexplain($2, $3, $5, $4, $6);
+			dodexplain($2, $3, $5, $4, $6, $7);
 			}
 
-		| EXPLAIN storage opt_constvol_list cdecl NL
+		| EXPLAIN storage opt_constvol_list cdecl optinit NL
 			{
 			Debug((stderr, "stmt: EXPLAIN storage opt_constvol_list cdecl\n"));
 			Debug((stderr, "\tstorage='%s'\n", $2));
 			Debug((stderr, "\topt_constvol_list='%s'\n", $3));
 			Debug((stderr, "\tcdecl='%s'\n", $4));
 			Debug((stderr, "\tprev = '%s'\n", visible(prev)));
-			dodexplain($2, $3, ds(""), NullCP, $4);
+			dodexplain($2, $3, ds(""), NullCP, $4, $5);
 			}
 
-		| EXPLAIN opt_storage constvol_list cdecl NL
+		| EXPLAIN opt_storage constvol_list cdecl optinit NL
 			{
 			Debug((stderr, "stmt: EXPLAIN opt_storage constvol_list cdecl\n"));
 			Debug((stderr, "\topt_storage='%s'\n", $2));
 			Debug((stderr, "\tconstvol_list='%s'\n", $3));
 			Debug((stderr, "\tcdecl='%s'\n", $4));
 			Debug((stderr, "\tprev = '%s'\n", visible(prev)));
-			dodexplain($2, $3, ds(""), NullCP, $4);
+			dodexplain($2, $3, ds(""), NullCP, $4, $5);
 			}
 
 		| EXPLAIN '(' opt_constvol_list type cast ')' optNAME NL
@@ -161,6 +163,20 @@ optNAME		: NAME
 			{
 			Debug((stderr, "optNAME: EMPTY\n"));
 			$$ = ds(unknown_name);
+			}
+		;
+
+optinit		: /* empty */
+			{
+			Debug((stderr, "optinit: EMPTY\n"));
+			$$ = NullCP;
+			}
+
+		| INIT
+			{
+			Debug((stderr, "optinit: INIT\n"));
+			Debug((stderr, "\tINIT='%s'\n", $1));
+			$$ = $1;
 			}
 		;
 
@@ -749,6 +765,21 @@ c_type		: mod_list
 			Debug((stderr, "c_type: tname\n"));
 			Debug((stderr, "\ttname='%s'\n", $1));
 			$$ = $1;
+			}
+
+		| TYPEDEF
+			{
+			Debug((stderr, "c_type: TYPEDEF\n"));
+			Debug((stderr, "\tTYPEDEF='%s'\n", $1));
+			$$ = $1;
+			}
+
+		| mod_list TYPEDEF
+			{
+			Debug((stderr, "c_type: mod_list TYPEDEF\n"));
+			Debug((stderr, "\tmod_list='%s'\n", $1));
+			Debug((stderr, "\tTYPEDEF='%s'\n", $2));
+			$$ = cat($1,ds(" "),$2,NullCP);
 			}
 
 		| mod_list tname
