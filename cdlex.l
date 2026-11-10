@@ -62,6 +62,12 @@ unsigned	{ yylval.dynstr = ds(yytext);	return UNSIGNED; }
 void		{ yylval.dynstr = ds(yytext);	return VOID; }
 volatile	{ yylval.dynstr = ds(yytext);	return CONSTVOLATILE; }
 
+int8_t|int16_t|int32_t|int64_t		{ yylval.dynstr = ds(yytext);	return TYPEDEF; }
+uint8_t|uint16_t|uint32_t|uint64_t	{ yylval.dynstr = ds(yytext);	return TYPEDEF; }
+intptr_t|uintptr_t|intmax_t|uintmax_t	{ yylval.dynstr = ds(yytext);	return TYPEDEF; }
+size_t|ssize_t|ptrdiff_t		{ yylval.dynstr = ds(yytext);	return TYPEDEF; }
+wchar_t|char16_t|char32_t|char8_t	{ yylval.dynstr = ds(yytext);	return TYPEDEF; }
+
 {A}{AN}*	{ yylval.dynstr = ds(yytext);	return NAME; }
 {N}+		{ yylval.dynstr = ds(yytext);	return NUMBER; }
 

@@ -19,6 +19,7 @@ char cdgramsccsid[] = "@(#)cdgram.y	2.2 3/30/88";
 %token <dynstr> CHAR CLASS CONSTVOLATILE DOUBLE ENUM FLOAT INT LONG NAME
 %token <dynstr> NUMBER SHORT SIGNED STRUCT UNION UNSIGNED VOID
 %token <dynstr> AUTO EXTERN REGISTER STATIC
+%token <dynstr> TYPEDEF
 %token <dynstr> INIT
 %type <dynstr> adecllist adims c_type cast castlist cdecl cdecl1 cdims
 %type <dynstr> constvol_list ClassStruct mod_list mod_list1 modifier optinit
@@ -764,6 +765,21 @@ c_type		: mod_list
 			Debug((stderr, "c_type: tname\n"));
 			Debug((stderr, "\ttname='%s'\n", $1));
 			$$ = $1;
+			}
+
+		| TYPEDEF
+			{
+			Debug((stderr, "c_type: TYPEDEF\n"));
+			Debug((stderr, "\tTYPEDEF='%s'\n", $1));
+			$$ = $1;
+			}
+
+		| mod_list TYPEDEF
+			{
+			Debug((stderr, "c_type: mod_list TYPEDEF\n"));
+			Debug((stderr, "\tmod_list='%s'\n", $1));
+			Debug((stderr, "\tTYPEDEF='%s'\n", $2));
+			$$ = cat($1,ds(" "),$2,NullCP);
 			}
 
 		| mod_list tname

@@ -73,6 +73,9 @@ declare x as int initialized to 5
 declare p as pointer to char initialized to "hello"
 declare a as array 4 of int initialized to {1, 2, 3, 4}
 declare y as unsigned long initialized to 0x10
+declare p as pointer to uint32_t initialized to &val
+declare n as const size_t
+declare buf as array 4 of uint8_t
 (void)x
 (char *)x
 (int (*)[4])x
