@@ -159,7 +159,7 @@ void yyerror(char *);
 void doset(char *);
 void dodeclare(char *, char *, char *, char *, char *);
 void docast(char *, char *, char *, char *);
-void dodexplain(char *, char *, char *, char *, char *);
+void dodexplain(char *, char *, char *, char *, char *, char *);
 void docexplain(char *, char *, char *, char *);
 void cdecl_setprogname(char *);
 int dotmpfile(int, char **), dofileargs(int, char **);
@@ -1025,8 +1025,8 @@ void dodeclare(name, storage, left, right, type) char *name, *storage, *left,
     free(name);
 }
 
-void dodexplain(storage, constvol1, constvol2, type, decl) char *storage,
-    *constvol1, *constvol2, *type, *decl;
+void dodexplain(storage, constvol1, constvol2, type, decl, init) char *storage,
+    *constvol1, *constvol2, *type, *decl, *init;
 {
   if (type && (strcmp(type, "void") == 0)) {
     if (prev == 'n')
@@ -1059,7 +1059,11 @@ void dodexplain(storage, constvol1, constvol2, type, decl) char *storage,
     (void)printf("%s ", constvol1);
   if (*constvol2)
     (void)printf("%s ", constvol2);
-  (void)printf("%s\n", type ? type : "int");
+  (void)printf("%s", type ? type : "int");
+  if (init && *init)
+    (void)printf(" initialized to %s", init);
+  (void)printf("\n");
+  free(init);
 }
 
 void docexplain(constvol, type, cast, name) char *constvol, *type, *cast, *name;

@@ -74,6 +74,10 @@ declare x as const int
 declare x as const int
 declare x as static int
 declare x as const int
+declare x as int initialized to 5
+declare p as pointer to char initialized to "hello"
+declare a as array 4 of int initialized to {1, 2, 3, 4}
+declare y as unsigned long initialized to 0x10
 (void)x
 (char *)x
 (int (*)[4])x

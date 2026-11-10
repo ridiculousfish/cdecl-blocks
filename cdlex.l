@@ -67,6 +67,17 @@ volatile	{ yylval.dynstr = ds(yytext);	return CONSTVOLATILE; }
 
 [#].*		;
 [\t ]		;
+=[^;\n]*	{
+			/* An initializer after '=' in a declaration, e.g.
+			   "int x = 5".  The whole initializer up to the
+			   next ';' or newline is captured verbatim; the
+			   parser only uses it to describe the declaration. */
+			char *p = yytext + 1;
+			while ((*p == ' ') || (*p == '\t'))
+				p++;
+			yylval.dynstr = ds(p);
+			return INIT;
+		}
 [&*[\]();^\n]	return *yytext;
 .		{
 			(void) printf("bad character '%s'\n",visible(*yytext));
